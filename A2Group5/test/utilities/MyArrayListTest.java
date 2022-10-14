@@ -145,8 +145,40 @@ class MyArrayListTest {
 	 * Test method for {@link utilities.MyArrayList#add(java.lang.Object)}.
 	 */
 	@Test
-	void testAddE() {
-		fail("Not yet implemented");
+	void testAddEEmptyList() {
+		boolean actual = list1.add("A");
+		assertTrue(actual);
+		assertEquals(1, list1.size());
+		assertEquals(1, "A");
+		
+	}
+	
+	/**
+	 * Test method for {@link utilities.MyArrayList#add(java.lang.Object)}.
+	 */
+	@Test
+	void testAddENonEmptyList() {
+		list1.add("A");
+		boolean actual = list1.add("B");
+		assertTrue(actual);
+		assertEquals(2, list1.size());
+		assertEquals(2, "B");
+		
+	}
+	
+	/**
+	 * Test method for {@link utilities.MyArrayList#add(java.lang.Object)}.
+	 */
+	@Test
+	void testAddENullPointerException() {
+		try {
+		list1.add(null);
+		fail("NullPointerException didn't throw");
+		}
+		catch (NullPointerException e){
+			assertTrue(true);
+		}
+		
 	}
 
 	/**
@@ -161,8 +193,29 @@ class MyArrayListTest {
 	 * Test method for {@link utilities.MyArrayList#get(int)}.
 	 */
 	@Test
-	void testGet() {
-		fail("Not yet implemented");
+	void testGetInBounds() {
+		list1.add("A");
+		list1.add("B");
+		list1.add("C");
+		String get = list1.get(1);
+		assertEquals("B", get);
+	}
+	
+	/**
+	 * Test method for {@link utilities.MyArrayList#get(int)}.
+	 */
+	@Test
+	void testGetOutOfBoundsGreater() {
+		list1.add("A");
+		list1.add("B");
+		list1.add("C");
+		try {
+		String get = list1.get(5);
+		fail("IndexOutOfBoundsException didn't throw");
+		}
+		catch (IndexOutOfBoundsException e) {
+			assertTrue(true);
+		}
 	}
 
 	/**
@@ -193,8 +246,13 @@ class MyArrayListTest {
 	 * Test method for {@link utilities.MyArrayList#isEmpty()}.
 	 */
 	@Test
-	void testIsEmpty() {
-		fail("Not yet implemented");
+	void testIsEmptyTrue() {
+		assertEquals(0, list1.size());
+	}
+	
+	void testIsEmptyFalse() {
+		list1.add(0, "A");
+		assertEquals(0, list1.size());
 	}
 
 	/**
