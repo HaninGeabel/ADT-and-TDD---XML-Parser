@@ -42,7 +42,7 @@ class MyArrayListTest {
 	 */
 	@Test
 	void testSize() {
-		list1.add(0, "A");
+		list1.add("A");
 		assertEquals(1, list1.size();
 	}
 
@@ -51,9 +51,9 @@ class MyArrayListTest {
 	 */
 	@Test
 	void testClear() {
-		list1.add(0, "A");
-		list1.add(1, "B");
-		list1.add(2, "C");
+		list1.add("A");
+		list1.add("B");
+		list1.add("C");
 		list1.clear();
 		assertEquals(0, list1.size());
 	}
@@ -146,7 +146,7 @@ class MyArrayListTest {
 		boolean actual = list1.add("A");
 		assertTrue(actual);
 		assertEquals(1, list1.size());
-		assertEquals(0, "A");
+		assertEquals(list1.get(0), "A");
 
 	}
 
@@ -159,7 +159,7 @@ class MyArrayListTest {
 		boolean actual = list1.add("B");
 		assertTrue(actual);
 		assertEquals(2, list1.size());
-		assertEquals(1, "B");
+		assertEquals(list1.get(1), "B");
 
 	}
 
@@ -181,7 +181,7 @@ class MyArrayListTest {
 	 * Test method for {@link utilities.MyArrayList#addAll(utilities.ListADT)}.
 	 */
 	@Test
-	void testAddAll() {
+	void testAddAll() {//ALSO ADD A TEST FOR A DLL
 		ArrayList<String> toAdd = new ArrayList<String>();
 				toAdd.add("A");
 				toAdd.add("B");
@@ -247,6 +247,22 @@ class MyArrayListTest {
 			assertTrue(true);
 		}
 	}
+	
+	/**
+	 * Test method for {@link utilities.MyArrayList#get(int)}.
+	 */
+	@Test
+	void testGetOutOfBoundsLower() {
+		list1.add("A");
+		list1.add("B");
+		list1.add("C");
+		try {
+			String get = list1.get(-1);
+			fail("IndexOutOfBoundsException didn't throw");
+		} catch (IndexOutOfBoundsException e) {
+			assertTrue(true);
+		}
+	}
 
 	/**
 	 * Test method for {@link utilities.MyArrayList#remove(int)}.
@@ -257,7 +273,7 @@ class MyArrayListTest {
 		list1.add("B");
 		list1.remove(0);
 		
-		assertEquals(0, "B");
+		assertEquals(list1.get(0), "B");
 		assertEquals(1, list1.size());
 		
 	}
@@ -271,7 +287,7 @@ class MyArrayListTest {
 		list1.add("B");
 		list1.remove(1);
 		
-		assertEquals(0, "A");
+		assertEquals(list1.get(0), "A");
 		assertEquals(1, list1.size());
 		
 	}
@@ -286,9 +302,9 @@ class MyArrayListTest {
 		list1.add("C");
 		list1.remove(1);
 		
-		assertEquals(0, "A");
-		assertEquals(1, "C");
-		assertEquals(2, list1.size());
+		assertEquals(list1.get(0), "A");
+		assertEquals(list1.get(1), "C");
+		assertEquals(list1.get(2), list1.size());
 		
 	}
 	
@@ -339,7 +355,8 @@ class MyArrayListTest {
 		
 		list1.remove("A");
 		
-		assertEquals(0, "B");
+		assertEquals(list1.get(0), "B");
+		assertEquals(list1.get(1), "C");
 		assertEquals(2, list1.size());
 	}
 	
@@ -354,8 +371,8 @@ class MyArrayListTest {
 		
 		list1.remove("B");
 		
-		assertEquals(0, "A");
-		assertEquals(1, "C");
+		assertEquals(list1.get(0), "A");
+		assertEquals(list1.get(1), "C");
 		assertEquals(2, list1.size());
 	}
 	
@@ -370,8 +387,8 @@ class MyArrayListTest {
 		
 		list1.remove("C");
 		
-		assertEquals(0, "A");
-		assertEquals(1, "B");
+		assertEquals(list1.get(0), "A");
+		assertEquals(list1.get(1), "B");
 		assertEquals(2, list1.size());
 	}
 	
@@ -387,8 +404,9 @@ class MyArrayListTest {
 		
 		list1.remove("A");
 		
-		assertEquals(0, "B");
-		assertEquals(1, "A");
+		assertEquals(list1.get(0), "B");
+		assertEquals(list1.get(1), "A");
+		assertEquals(list1.get(2), "C");
 		assertEquals(3, list1.size());
 	}
 	
@@ -404,9 +422,9 @@ class MyArrayListTest {
 		
 		list1.remove("D");//This should change nothing.
 		
-		assertEquals(0, "A");
-		assertEquals(1, "B");
-		assertEquals(2, "C");
+		assertEquals(list1.get(0), "A");
+		assertEquals(list1.get(1), "B");
+		assertEquals(list1.get(2), "C");
 		assertEquals(3, list1.size());
 	}
 	
@@ -436,7 +454,9 @@ class MyArrayListTest {
 		list1.add("B");
 		list1.add("C");
 		list1.set(0, "D");
-		assertEquals(0, "D");
+		assertEquals(list1.get(0), "D");
+		assertEquals(list1.get(1), "B");
+		assertEquals(list1.get(2), "C");
 		assertEquals(3, list1.size());
 	}
 	
@@ -449,7 +469,9 @@ class MyArrayListTest {
 		list1.add("B");
 		list1.add("C");
 		list1.set(1, "D");
-		assertEquals(1, "D");
+		assertEquals(list1.get(0), "A");
+		assertEquals(list1.get(1), "D");
+		assertEquals(list1.get(2), "C");
 		assertEquals(3, list1.size());
 	}
 	
@@ -462,7 +484,9 @@ class MyArrayListTest {
 		list1.add("B");
 		list1.add("C");
 		list1.set(2, "D");
-		assertEquals(2, "D");
+		assertEquals(list1.get(0), "A");
+		assertEquals(list1.get(1), "B");
+		assertEquals(list1.get(2), "D");
 		assertEquals(3, list1.size());
 	}
 	
