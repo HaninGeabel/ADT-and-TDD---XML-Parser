@@ -5,6 +5,8 @@ package utilities;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -16,8 +18,8 @@ import org.junit.jupiter.api.Test;
  *
  */
 class MyArrayListTest {
-	
-	ListADT<E> <String> list1;
+
+	ListADT<E><String>list1;
 
 	/**
 	 * @throws java.lang.Exception
@@ -52,9 +54,7 @@ class MyArrayListTest {
 		list1.add(0, "A");
 		list1.add(1, "B");
 		list1.add(2, "C");
-		while (list1.size > 0) {
-			list1.remove(list1.size()-1);
-		}
+		list1.clear();
 		assertEquals(0, list1.size());
 	}
 
@@ -68,7 +68,7 @@ class MyArrayListTest {
 		assertEquals(1, list1.size());
 		assertEquals("A", list1.get(0));
 	}
-	
+
 	/**
 	 * Test method for {@link utilities.MyArrayList#add(int, java.lang.Object)}.
 	 */
@@ -80,7 +80,7 @@ class MyArrayListTest {
 		assertEquals(2, list1.size());
 		assertEquals("A", list1.get(0));
 	}
-	
+
 	/**
 	 * Test method for {@link utilities.MyArrayList#add(int, java.lang.Object)}.
 	 */
@@ -93,7 +93,7 @@ class MyArrayListTest {
 		assertEquals(3, list1.size());
 		assertEquals("B", list1.get(1));
 	}
-	
+
 	/**
 	 * Test method for {@link utilities.MyArrayList#add(int, java.lang.Object)}.
 	 */
@@ -115,32 +115,29 @@ class MyArrayListTest {
 		try {
 			list1.add(0, null);
 			fail("NullPointerException didn't throw");
-		}
-		catch (NullPointerException e){
+		} catch (NullPointerException e) {
 			assertTrue(true);
-			}
+		}
 	}
-	
+
 	void testAddIntEIndexOutOfBoundsNegative() {
 		try {
 			list1.add(-1, "A");
 			fail("IndexOutOfBoundsException didn't throw");
-		}
-		catch (IndexOutOfBoundsException e){
+		} catch (IndexOutOfBoundsException e) {
 			assertTrue(true);
-			}
+		}
 	}
-	
+
 	void testAddIntEIndexOutOfBoundsGreaterThanSize() {
 		try {
 			list1.add(1, "A");
 			fail("IndexOutOfBoundsException didn't throw");
-		}
-		catch (IndexOutOfBoundsException e){
+		} catch (IndexOutOfBoundsException e) {
 			assertTrue(true);
-			}
+		}
 	}
-	
+
 	/**
 	 * Test method for {@link utilities.MyArrayList#add(java.lang.Object)}.
 	 */
@@ -149,10 +146,10 @@ class MyArrayListTest {
 		boolean actual = list1.add("A");
 		assertTrue(actual);
 		assertEquals(1, list1.size());
-		assertEquals(1, "A");
-		
+		assertEquals(0, "A");
+
 	}
-	
+
 	/**
 	 * Test method for {@link utilities.MyArrayList#add(java.lang.Object)}.
 	 */
@@ -162,23 +159,22 @@ class MyArrayListTest {
 		boolean actual = list1.add("B");
 		assertTrue(actual);
 		assertEquals(2, list1.size());
-		assertEquals(2, "B");
-		
+		assertEquals(1, "B");
+
 	}
-	
+
 	/**
 	 * Test method for {@link utilities.MyArrayList#add(java.lang.Object)}.
 	 */
 	@Test
 	void testAddENullPointerException() {
 		try {
-		list1.add(null);
-		fail("NullPointerException didn't throw");
-		}
-		catch (NullPointerException e){
+			list1.add(null);
+			fail("NullPointerException didn't throw");
+		} catch (NullPointerException e) {
 			assertTrue(true);
 		}
-		
+
 	}
 
 	/**
@@ -186,7 +182,42 @@ class MyArrayListTest {
 	 */
 	@Test
 	void testAddAll() {
-		fail("Not yet implemented");
+		ArrayList<String> toAdd = new ArrayList<String>();
+				toAdd.add("A");
+				toAdd.add("B");
+				toAdd.add("C");
+		
+				list1.addAll(toAdd);
+				
+				assertEquals(3, length);
+				assertEquals(list[0], "A");
+				assertEquals(list[1], "B");
+				assertEquals(list[2], "C");		
+	}
+	
+	/**
+	 * Test method for {@link utilities.MyArrayList#addAll(utilities.ListADT)}.
+	 */
+	@Test
+	void testAddAllNullPointerException() {
+		ArrayList<String> toAdd = new ArrayList<String>();
+				toAdd.add("A");
+				toAdd.add("B");
+				try {
+				toAdd.add(null); 
+				fail("NullPointerException didn't throw");
+				}
+				catch (NullPointerException e) {
+					assertTrue(true);
+				}
+				try {
+					list1.addAll(toAdd);
+					fail("NullPointerException didn't throw");
+				}
+				catch (NullPointerException e) {
+					assertTrue(true);
+				}
+		
 	}
 
 	/**
@@ -200,7 +231,7 @@ class MyArrayListTest {
 		String get = list1.get(1);
 		assertEquals("B", get);
 	}
-	
+
 	/**
 	 * Test method for {@link utilities.MyArrayList#get(int)}.
 	 */
@@ -210,10 +241,9 @@ class MyArrayListTest {
 		list1.add("B");
 		list1.add("C");
 		try {
-		String get = list1.get(5);
-		fail("IndexOutOfBoundsException didn't throw");
-		}
-		catch (IndexOutOfBoundsException e) {
+			String get = list1.get(5);
+			fail("IndexOutOfBoundsException didn't throw");
+		} catch (IndexOutOfBoundsException e) {
 			assertTrue(true);
 		}
 	}
@@ -222,24 +252,269 @@ class MyArrayListTest {
 	 * Test method for {@link utilities.MyArrayList#remove(int)}.
 	 */
 	@Test
-	void testRemoveInt() {
-		fail("Not yet implemented");
+	void testRemoveIntStartOfList() {
+		list1.add("A");
+		list1.add("B");
+		list1.remove(0);
+		
+		assertEquals(0, "B");
+		assertEquals(1, list1.size());
+		
+	}
+	
+	/**
+	 * Test method for {@link utilities.MyArrayList#remove(int)}.
+	 */
+	@Test
+	void testRemoveIntEndOfList() {
+		list1.add("A");
+		list1.add("B");
+		list1.remove(1);
+		
+		assertEquals(0, "A");
+		assertEquals(1, list1.size());
+		
+	}
+	
+	/**
+	 * Test method for {@link utilities.MyArrayList#remove(int)}.
+	 */
+	@Test
+	void testRemoveIntMiddleOfList() {
+		list1.add("A");
+		list1.add("B");
+		list1.add("C");
+		list1.remove(1);
+		
+		assertEquals(0, "A");
+		assertEquals(1, "C");
+		assertEquals(2, list1.size());
+		
+	}
+	
+	/**
+	 * Test method for {@link utilities.MyArrayList#remove(int)}.
+	 */
+	@Test
+	void testRemoveIntIndexOutOfBoundsLower() {
+		list1.add("A");
+		list1.add("B");
+		list1.add("C");
+		try {
+		list1.remove(-1);
+		fail("IndexOutOfBoundsException didn't throw");
+		}
+		catch (IndexOutOfBoundsException e) {
+			assertTrue(true);
+		}
+		
+	}
+	
+	/**
+	 * Test method for {@link utilities.MyArrayList#remove(int)}.
+	 */
+	@Test
+	void testRemoveIntIndexOutOfBoundsGreater() {
+		list1.add("A");
+		list1.add("B");
+		list1.add("C");
+		try {
+		list1.remove(5);
+		fail("IndexOutOfBoundsException didn't throw");
+		}
+		catch (IndexOutOfBoundsException e) {
+			assertTrue(true);
+		}
+		
 	}
 
 	/**
 	 * Test method for {@link utilities.MyArrayList#remove(java.lang.Object)}.
 	 */
 	@Test
-	void testRemoveE() {
-		fail("Not yet implemented");
+	void testRemoveEStart() {
+		list1.add("A");
+		list1.add("B");
+		list1.add("C");
+		
+		list1.remove("A");
+		
+		assertEquals(0, "B");
+		assertEquals(2, list1.size());
+	}
+	
+	/**
+	 * Test method for {@link utilities.MyArrayList#remove(java.lang.Object)}.
+	 */
+	@Test
+	void testRemoveEMiddle() {
+		list1.add("A");
+		list1.add("B");
+		list1.add("C");
+		
+		list1.remove("B");
+		
+		assertEquals(0, "A");
+		assertEquals(1, "C");
+		assertEquals(2, list1.size());
+	}
+	
+	/**
+	 * Test method for {@link utilities.MyArrayList#remove(java.lang.Object)}.
+	 */
+	@Test
+	void testRemoveEEnd() {
+		list1.add("A");
+		list1.add("B");
+		list1.add("C");
+		
+		list1.remove("C");
+		
+		assertEquals(0, "A");
+		assertEquals(1, "B");
+		assertEquals(2, list1.size());
+	}
+	
+	/**
+	 * Test method for {@link utilities.MyArrayList#remove(java.lang.Object)}.
+	 */
+	@Test
+	void testRemoveEDuplicate() {
+		list1.add("A");
+		list1.add("B");
+		list1.add("A");
+		list1.add("C");
+		
+		list1.remove("A");
+		
+		assertEquals(0, "B");
+		assertEquals(1, "A");
+		assertEquals(3, list1.size());
+	}
+	
+	/**
+	 * Test method for {@link utilities.MyArrayList#remove(java.lang.Object)}.
+	 */
+	@Test
+	void testRemoveENonexistant() {
+		list1.add("A");
+		list1.add("B");
+		list1.add("A");
+		list1.add("C");
+		
+		list1.remove("D");//This should change nothing.
+		
+		assertEquals(0, "A");
+		assertEquals(1, "B");
+		assertEquals(2, "C");
+		assertEquals(3, list1.size());
+	}
+	
+	/**
+	 * Test method for {@link utilities.MyArrayList#remove(java.lang.Object)}.
+	 */
+	@Test
+	void testRemoveENullPointerException() {
+		list1.add("A");
+		list1.add("B");
+		list1.add("C");
+		try {
+		list1.remove(null);
+		fail("NullPointerException didn't throw");
+		}
+		catch (NullPointerException e) {
+		assertTrue(true);
+		}
 	}
 
 	/**
 	 * Test method for {@link utilities.MyArrayList#set(int, java.lang.Object)}.
 	 */
 	@Test
-	void testSet() {
-		fail("Not yet implemented");
+	void testSetFirst() {
+		list1.add("A");
+		list1.add("B");
+		list1.add("C");
+		list1.set(0, "D");
+		assertEquals(0, "D");
+		assertEquals(3, list1.size());
+	}
+	
+	/**
+	 * Test method for {@link utilities.MyArrayList#set(int, java.lang.Object)}.
+	 */
+	@Test
+	void testSetMiddle() {
+		list1.add("A");
+		list1.add("B");
+		list1.add("C");
+		list1.set(1, "D");
+		assertEquals(1, "D");
+		assertEquals(3, list1.size());
+	}
+	
+	/**
+	 * Test method for {@link utilities.MyArrayList#set(int, java.lang.Object)}.
+	 */
+	@Test
+	void testSetEnd() {
+		list1.add("A");
+		list1.add("B");
+		list1.add("C");
+		list1.set(2, "D");
+		assertEquals(2, "D");
+		assertEquals(3, list1.size());
+	}
+	
+	/**
+	 * Test method for {@link utilities.MyArrayList#set(int, java.lang.Object)}.
+	 */
+	@Test
+	void testSetNullPointer() {
+		list1.add("A");
+		list1.add("B");
+		list1.add("C");
+		try {
+		list1.set(2, null);
+		fail("NullPointerException not thrown");
+		}
+		catch (NullPointerException e) {
+			assertTrue(true);
+		}
+	}
+	
+	/**
+	 * Test method for {@link utilities.MyArrayList#set(int, java.lang.Object)}.
+	 */
+	@Test
+	void testSetIndexOutOfBoundsLower() {
+		list1.add("A");
+		list1.add("B");
+		list1.add("C");
+		try {
+		list1.set(-1, "D");
+		fail("IndexOutOfBoundsException not thrown");
+		}
+		catch (IndexOutOfBoundsException e) {
+			assertTrue(true);
+		}
+	}
+	
+	/**
+	 * Test method for {@link utilities.MyArrayList#set(int, java.lang.Object)}.
+	 */
+	@Test
+	void testSetIndexOutOfBoundsGreater() {
+		list1.add("A");
+		list1.add("B");
+		list1.add("C");
+		try {
+		list1.set(5, "D");
+		fail("IndexOutOfBoundsException not thrown");
+		}
+		catch (IndexOutOfBoundsException e) {
+			assertTrue(true);
+		}
 	}
 
 	/**
@@ -247,20 +522,56 @@ class MyArrayListTest {
 	 */
 	@Test
 	void testIsEmptyTrue() {
-		assertEquals(0, list1.size());
+		assertEquals(true, list1.isEmpty());
 	}
-	
+
 	void testIsEmptyFalse() {
 		list1.add(0, "A");
-		assertEquals(0, list1.size());
+		assertEquals(false, list1.isEmpty());
 	}
 
 	/**
 	 * Test method for {@link utilities.MyArrayList#contains(java.lang.Object)}.
 	 */
 	@Test
-	void testContains() {
-		fail("Not yet implemented");
+	void testContainsTrue() {
+		list1.add("A");
+		assertEquals(true, list1.contains("A"));
+	}
+	
+	/**
+	 * Test method for {@link utilities.MyArrayList#contains(java.lang.Object)}.
+	 */
+	@Test
+	void testContainsFalse() {
+		list1.add("A");
+		assertEquals(false, list1.contains("B"));
+	}
+	
+	/**
+	 * Test method for {@link utilities.MyArrayList#contains(java.lang.Object)}.
+	 */
+	@Test
+	void testContainsManyTrue() {
+		list1.add("A");
+		list1.add("B");
+		list1.add("A");
+		assertEquals(true, list1.contains("A"));
+	}
+	
+	/**
+	 * Test method for {@link utilities.MyArrayList#contains(java.lang.Object)}.
+	 */
+	@Test
+	void testContainsNullPointer() {
+		list1.add("A");
+		try {
+			list1.contains(null));
+		fail("NullPointerException not thrown");
+		}
+		catch (NullPointerException e) {
+			assertTrue(true);
+		}
 	}
 
 	/**
@@ -268,7 +579,40 @@ class MyArrayListTest {
 	 */
 	@Test
 	void testToArrayEArray() {
-		fail("Not yet implemented");
+		list1.add("A");
+		list1.add("B");
+		list1.add("C");
+		list1.toArray(E[] toHold);
+		assertEquals(toHold[0], "A");
+		assertEquals(toHold[1], "B");
+		assertEquals(toHold[2], "C");
+		assertEquals(3, toHold.length());
+	}
+	
+	/**
+	 * Test method for {@link utilities.MyArrayList#toArray(E[])}.
+	 */
+	@Test
+	void testToArrayEArrayEmpty() {
+		list1.toArray(E[] toHold);
+		assertEquals(0, toHold.length());
+	}
+	
+	/**
+	 * Test method for {@link utilities.MyArrayList#toArray(E[])}.
+	 */
+	@Test
+	void testToArrayEArrayNullPointer() {
+		list1.add("A");
+		list1.add("B");
+		list1.add("C");
+		try {
+		list1.toArray(null);
+		fail("NullPointerException not thrown");
+		}
+		catch(NullPointerException e) {
+			assertTrue(true);
+		}
 	}
 
 	/**
@@ -276,7 +620,14 @@ class MyArrayListTest {
 	 */
 	@Test
 	void testToArray() {
-		fail("Not yet implemented");
+		list1.add("A");
+		list1.add("B");
+		list1.add("C");
+		Object[] = list1.toArray();
+		assertEquals(Object[0], "A");
+		assertEquals(Object[1], "B");
+		assertEquals(Object[2], "C");
+		assertEquals(3, Object.length());
 	}
 
 	/**
@@ -288,13 +639,13 @@ class MyArrayListTest {
 		assertFalse(it.hasNext());
 		try {
 			it.next();
-			fail("NoSUchElementexception didn't throw")
+			fail("NoSuchElementexception didn't throw")
 		}
 		catch (NoSuchElementException e) {
 			assertTrue(true);
 		}
 	}
-	
+
 	/**
 	 * Test method for {@link utilities.MyArrayList#iterator()}.
 	 */
@@ -303,7 +654,7 @@ class MyArrayListTest {
 		list1.add("A");
 		list1.add("B");
 		list1.add("C");
-		Iterator <String> it = list1.iterator();
+		Iterator<String> it = list1.iterator();
 		assertTrue(it.hasNext());
 		int i = 0;
 		while (it.hasNext()) {
