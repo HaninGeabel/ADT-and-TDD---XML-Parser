@@ -274,8 +274,7 @@ class MyArrayListTest {
 		list1.remove(0);
 		
 		assertEquals(list1.get(0), "B");
-		assertEquals(1, list1.size());
-		
+		assertEquals(1, list1.size());	
 	}
 	
 	/**

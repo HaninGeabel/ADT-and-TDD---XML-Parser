@@ -5,53 +5,120 @@ import java.util.NoSuchElementException;
 public class MyArrayList<E> implements  ListADT<E> {
 
 	private static final long serialVersionUID = -6641976547739553233L;
+	
+	Object[] array;
+	int capacity;
+	int size;
+	
+	MyArrayList(){
+		size = 0;
+		capacity = 5;
+		array = new Object[capacity];
+	}
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return array.length;
 	}
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
-		
+		array = null;
 	}
 
 	@Override
 	public boolean add(int index, E toAdd) throws NullPointerException, IndexOutOfBoundsException {
-		// TODO Auto-generated method stub
+		Object temp1 = "";
+		temp1 = array[index];
+		array[index] = toAdd;
+		for (i=index+1; i<array.size()-1; i++) { //iterates through list and slides each value over by one after the insertion point
+			Object temp2 = array[index];
+			array[index] = temp1;
+			temp1 = temp2;
 		return false;
 	}
 
 	@Override
 	public boolean add(E toAdd) throws NullPointerException {
-		// TODO Auto-generated method stub
+		try {
+		if ((array.size() + 1) >= capacity) {
+		array[size]=item;
+		size++;
+		return true;
+		}
+		else {
+			Object[] newArray = new Object[array.size() + 1];
+			for (int i = 0; 1 < array.length; i++) {
+				newArray[i] = array[i];
+			}
+			newArray[size++]=item;
+			array = newArray;
+			return true;
+		}
+	} 		catch (NullPointerException e) {
+		System.out.println("Error: Null items cannot be added.");
 		return false;
+	}
 	}
 
 	@Override
 	public boolean addAll(ListADT<? extends E> toAdd) throws NullPointerException {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			for (Object add: toAdd) {
+				array.add(add);
+			}
+			return true;
+		}
+			catch (NullPointerException e) {
+				System.out.println("Error: Null list cannot be added.");
+				return false;
+			}
+		}
 	}
 
 	@Override
 	public E get(int index) throws IndexOutOfBoundsException {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			return array[index];
+		}
+		catch (IndexOutOfBoundsException e) {
+			System.out.println("Error: Null list cannot be added.");
+		}
 	}
 
 	@Override
 	public E remove(int index) throws IndexOutOfBoundsException {
-		// TODO Auto-generated method stub
-		return null;
+		int removed = array[i];
+		try {
+			for (int i = index; i < size-1; i++) {
+				array[i] = array[i+1];//This just goes through the array, starting at the index, and overwrites each element with the next element
+			}
+			size--;
+		}
+		catch (IndexOutOfBoundsException e) {
+			
+		}
+		return removed;
 	}
 
 	@Override
 	public E remove(E toRemove) throws NullPointerException {
-		// TODO Auto-generated method stub
-		return null;
+		Object removed;
+		try {
+			for (int i = 0; i < size-1; i++) {
+				if (array[i] == toRemove) {
+					removed = array[i];
+					for (int j = i; j < size-1; j++) {//Once a match is located, shift everything over one
+				array[j] = array[j+1];//This just goes through the array, starting at the index, and overwrites each element with the next element
+			}
+				}
+			}
+			size--;
+		}
+		catch (IndexOutOfBoundsException e) {
+			
+		}
+		return removed;
 	}
 
 	@Override
@@ -62,8 +129,8 @@ public class MyArrayList<E> implements  ListADT<E> {
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		boolean isEmpty = (list.size==0);
+		return isEmpty;
 	}
 
 	@Override
